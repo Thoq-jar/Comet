@@ -1,0 +1,63 @@
+#!/bin/bash
+
+function check_dependency() {
+    if ! command -v $1 &> /dev/null; then
+        echo "$1 is not installed. Please install $1 before proceeding."
+        exit 1
+    fi
+}
+
+function download_comet() {
+    if [ -d ~/.comet ]; then
+        echo "Comet already exists. Skipping download."
+        cd ~/.comet
+        git pull
+    else
+        git clone https://github.com/Thoq-jar/Comet.git ~/.comet
+        cd ~/.comet
+    fi
+}
+
+function build_comet() {
+    zig build --release=fast
+}
+
+function install_comet() {
+    echo "This will require sudo permissions!"
+    sudo mv ~/.comet/zig-out/bin/Comet /usr/local/bin/comet
+}
+
+function main() {
+    echo "+------------------------+"
+    echo "+ Comet Installer v1.0.0 +"
+    echo "+------------------------+"
+    
+    echo ""
+    echo "[This will require sudo permissions]"
+    echo -n "Starting in 3..."
+    sleep 1
+    echo -n "2..."
+    sleep 1
+    echo "1..."
+    sleep 1
+
+    echo "Tasks completed [0/4]"
+    echo "[1/4] Checking for dependencies..."
+    check_dependency "git"
+    check_dependency "zig"
+
+    echo "[2/4] Downloading Comet..."
+    download_comet
+
+    echo "[3/4] Building Comet..."
+    build_comet
+
+    echo "[4/4] Installing Comet..."
+    install_comet
+
+    echo "Tasks completed [4/4]"
+    echo "Comet installed successfully!"
+    echo "You can now run 'comet'"
+}
+
+main
