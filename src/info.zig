@@ -2,7 +2,7 @@ const std = @import("std");
 
 const versionText = "Comet v0.1.0\n";
 const helpText =
-    \\Comet: A high preformance JS/TS runtime.
+    \\Comet: A high performance JS/TS runtime.
     \\
     \\Usage: comet [options] [command]
     \\
@@ -12,8 +12,9 @@ const helpText =
     \\      - Version: comet -v/--version (Show version info)
     \\      - Run: comet <yourfile.js/ts> (Run a JavaScript or TypeScript file)
     \\
-    \\  • Package manager:
-    \\      - Install: comet install/i (Install dependencies)
+    \\  • NPM Commands:
+    \\      - Install: comet install/i (Run npm install)
+    \\      - Run NPM Scripts: comet legacy <script> (Run npm scripts, e.g., comet legacy dev)
     \\
 ;
 
