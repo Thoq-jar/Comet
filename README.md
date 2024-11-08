@@ -7,7 +7,7 @@ Comet is a JavaScript/TypeScript runtime written in Zig.
 Comet is heavily inspired by [bun](https://github.com/oven-sh/bun).
 I've always been fascinated by the idea of writing a new JavaScript runtime and this is the one of many attempts.
 
-## Features
+## Featuresm
 
 - [x] Runtime (Partially working, needs ES6 support)
 - [ ] Standard Library (2nd priority)

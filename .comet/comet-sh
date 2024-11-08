@@ -1,30 +1,53 @@
 #!/bin/bash
 
-function check_dependency() {
-    if ! command -v $1 &> /dev/null; then
-        echo "$1 is not installed. Please install $1 before proceeding."
+os=$(uname)
+arch=$(uname -m)
+
+function check_curl() {
+    if ! command -v curl &> /dev/null; then
+        echo "curl is not installed. Please install curl before proceeding."
+        exit 1
+    fi
+}
+
+function check_os() {
+    if [ "$os" != "Linux" ] && [ "$os" != "Darwin" ]; then
+        echo "Unsupported OS. Only Linux (x64) and macOS (ARM64) are supported with this installer."
+        echo "Please build manually for other platforms."
+        exit 1
+    fi
+
+    if [ "$os" = "Linux" ] && [ "$arch" != "x86_64" ]; then
+        echo "Unsupported architecture. Only x64 is supported on Linux with this installer."
+        echo "Please build manually for other architectures."
+        exit 1
+    fi
+
+    if [ "$os" = "Darwin" ] && [ "$arch" != "arm64" ]; then
+        echo "Unsupported architecture. Only ARM64 is supported on macOS with this installer."
+        echo "Please build manually for other architectures."
         exit 1
     fi
 }
 
 function download_comet() {
     if [ -d ~/.comet ]; then
-        echo "Comet already exists. Skipping download."
-        cd ~/.comet
-        git pull
-    else
-        git clone https://github.com/Thoq-jar/Comet.git ~/.comet
-        cd ~/.comet
+        rm -rf ~/.comet
     fi
-}
 
-function build_comet() {
-    zig build --release=fast
+    mkdir -p ~/.comet
+    curl -L https://github.com/Thoq-jar/Comet/releases/latest/download/Comet-${os}-${arch} -o ~/.comet/comet
+    cd ~/.comet
 }
 
 function install_comet() {
     echo "This will require sudo permissions!"
-    sudo mv ~/.comet/zig-out/bin/Comet /usr/local/bin/comet
+    sudo mv ~/.comet/comet /usr/local/bin/comet
+}
+
+function cleanup() {
+    cd ~/
+    rm -rf ~/.comet
 }
 
 function main() {
@@ -42,20 +65,19 @@ function main() {
     sleep 1
 
     echo "Tasks completed [0/4]"
-    echo "[1/4] Checking for dependencies..."
-    check_dependency "git"
-    check_dependency "zig"
+    echo "[1/4] Checking OS..."
+    check_os
 
     echo "[2/4] Downloading Comet..."
     download_comet
 
-    echo "[3/4] Building Comet..."
-    build_comet
-
-    echo "[4/4] Installing Comet..."
+    echo "[3/4] Installing Comet..."
     install_comet
 
-    echo "Tasks completed [4/4]"
+    echo "[4/4] Cleaning up..."
+    cleanup
+
+    echo "Tasks completed: [4/4]"
     echo "Comet installed successfully!"
     echo "You can now run 'comet'"
 }

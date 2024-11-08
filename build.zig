@@ -19,6 +19,14 @@ pub fn build(b: *std.Build) void {
             exe.linkSystemLibrary("javascriptcoregtk-4.1");
             exe.linkLibC();
         },
+        .windows => {
+            std.debug.panic("Windows is not supported (yet)!", .{});
+        },
+        .freebsd => {
+            std.debug.panic("Pray that this works...", .{});
+            exe.linkSystemLibrary("javascriptcoregtk-4.1");
+            exe.linkLibC();
+        },
         else => @panic("Unsupported OS!"),
     }
 
