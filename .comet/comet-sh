@@ -42,8 +42,8 @@ function download_comet() {
 
 function install_comet() {
     echo "This will require sudo permissions!"
-    chmod +x ~/.comet/comet
     sudo mv ~/.comet/comet /usr/local/bin/comet
+    sudo chmod +x /usr/local/bin/comet
 }
 
 function cleanup() {
