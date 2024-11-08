@@ -1,8 +1,8 @@
 const std = @import("std");
-const io = @import("io.zig");
 const c = @cImport({
     @cInclude("JavaScriptCore/JavaScript.h");
 });
+const io = @import("io.zig");
 
 pub fn runtime(allocator: std.mem.Allocator, file_path: []const u8) !void {
     const js_content = try std.fs.cwd().readFileAlloc(allocator, file_path, 1024 * 1024);
