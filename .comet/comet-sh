@@ -3,9 +3,9 @@
 os=$(uname)
 arch=$(uname -m)
 
-function check_curl() {
-    if ! command -v curl &> /dev/null; then
-        echo "curl is not installed. Please install curl before proceeding."
+function check_wget() {
+    if ! command -v wget &> /dev/null; then
+        echo "wget is not installed. Please install wget before proceeding."
         exit 1
     fi
 }
@@ -36,7 +36,7 @@ function download_comet() {
     fi
 
     mkdir -p ~/.comet
-    curl -L https://github.com/Thoq-jar/Comet/releases/latest/download/Comet-${os}-${arch} -o ~/.comet/comet
+    wget https://github.com/Thoq-jar/Comet/releases/latest/download/Comet-${os}-${arch} -O ~/.comet/comet
     cd ~/.comet
 }
 
@@ -68,6 +68,7 @@ function main() {
     echo "Tasks completed [0/4]"
     echo "[1/4] Checking OS..."
     check_os
+    check_wget
 
     echo "[2/4] Downloading Comet..."
     download_comet
