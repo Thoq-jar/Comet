@@ -7,12 +7,12 @@ const helpText =
     \\Usage: comet [options] [command]
     \\
     \\Commands:
-    \\  ⬤ Runtime:
+    \\  ⬤   Runtime:
     \\      - Help: comet (Show this screen)
     \\      - Version: comet -v/--version (Show version info)
     \\      - Run: comet <yourfile.js/ts> (Run a JavaScript or TypeScript file)
     \\
-    \\  ⬤ Package manager:
+    \\  ⬤   Package manager:
     \\      - Install: comet install/i (Install dependencies)
     \\
 ;
