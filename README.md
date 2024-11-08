@@ -16,7 +16,7 @@ I've always been fascinated by the idea of writing a new JavaScript runtime and 
 ## Installation
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Thoq-jar/Comet/main/.comet/comet-sh | bash
+curl -fsSL https://raw.githubusercontent.com/Thoq-jar/Comet/refs/heads/master/.comet/comet-sh | bash
 ```
 
 ## License
